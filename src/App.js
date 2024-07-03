@@ -28,7 +28,7 @@ function App() {
   }
   return (
     <>
-    <BrowserRouter>
+    <BrowserRouter basename="/TextUtils">
   <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode}/>
   <div className="container my-3">
   <Routes>
