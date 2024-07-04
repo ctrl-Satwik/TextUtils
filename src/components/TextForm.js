@@ -3,6 +3,9 @@ import React, {useState} from 'react'
 
 
 export default function TextForm(props) {
+
+  const [palindromeResult, setPalindromeResult] = useState('');
+
   const handleUpClick = () => {
     // console.log("Uppercase was clicked" + text);
     let newText = text.toUpperCase();
@@ -19,12 +22,23 @@ export default function TextForm(props) {
     // console.log("Uppercase was clicked" + text);
     let newText = '';
     setText(newText);
+    setPalindromeResult('');
+  }
+
+  const checkPalindrome = () => {
+    const reversedText = text.split('').reverse().join('');
+    if (text === reversedText) {
+      setPalindromeResult('It is a palindrome!');
+    } else {
+      setPalindromeResult('It is not a palindrome.');
+    }
   }
 
 
   const handleOnChange = (event) => {
     // console.log("On change");
     setText(event.target.value);
+    setPalindromeResult('');
   }
   const [text, setText] = useState('Enter text here');
   return (
@@ -37,7 +51,9 @@ export default function TextForm(props) {
     </div>
     <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>Convert to Uppercase</button>
     <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleLoClick}>Convert to Lowercase</button>
+    <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={checkPalindrome}>Check Palindrome</button>
     <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleClearClick}>Clear Text</button>
+
     
     </div>
 
@@ -47,6 +63,9 @@ export default function TextForm(props) {
       <p>{0.008 * text.split(" ").filter((element)=> {return element.length !==0}).length} Minutes read</p>
       <h2>Preview</h2>
       <p>{text.length>0 ? text : "Nothing to preview"}</p>
+      {palindromeResult && (
+          <p>{palindromeResult}</p>
+        )}
     </div>
 
     </>
